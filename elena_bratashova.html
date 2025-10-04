@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пожелания на день</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poiret+One:wght@400;600&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Poiret One', cursive;
+            overflow: hidden;
+        }
+
+        .banner {
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Футуристический фон */
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(100, 100, 150, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(150, 100, 200, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(200, 200, 255, 0.05) 0%, transparent 60%);
+            z-index: 0;
+            animation: backgroundPulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        /* Анимированные частицы в фоне */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: float 8s infinite linear;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .title {
+            font-size: clamp(20px, 4vw, 28px);
+            text-align: center;
+            margin-top: 30px;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.1);
+            background: rgba(15, 15, 25, 0.8);
+            padding: 15px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            font-weight: 600;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .wish-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wish-text {
+            display: none;
+            font-size: clamp(16px, 3.5vw, 22px);
+            line-height: 1.6;
+            word-spacing: 4px;
+            letter-spacing: 1px;
+            background: rgba(10, 10, 20, 0.9);
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            max-width: 90%;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Контейнер для золотого шарика */
+        .ball-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .golden-ball {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 30% 30%, #ffef94, #ffd700, #b8860b);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 10px #ffd700,
+                0 0 20px #ffd700,
+                0 0 30px rgba(255, 215, 0, 0.5);
+            display: none;
+            z-index: 3;
+        }
+
+        .golden-ball::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .spark {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffd700;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .word {
+            display: inline-block;
+            margin-right: 0.35em;
+        }
+
+        .word:last-child {
+            margin-right: 0;
+        }
+
+        .letter {
+            display: inline-block;
+            opacity: 0;
+        }
+
+        .glowing {
+            animation: glow 2s forwards;
+        }
+
+        @keyframes glow {
+            0% {
+                opacity: 0;
+                text-shadow: 0 0 5px white, 0 0 10px white;
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 20px white, 0 0 30px white;
+            }
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 5px white, 0 0 10px white;
+            }
+        }
+
+        .button-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wish-button {
+            background: linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(40, 40, 60, 0.9));
+            color: white;
+            padding: clamp(12px, 3vw, 18px) clamp(25px, 6vw, 40px);
+            border-radius: 50px;
+            font-size: clamp(14px, 3.5vw, 20px);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+            font-family: 'Poiret One', cursive;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            outline: none;
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .wish-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(100, 150, 255, 0.2), 
+                rgba(255, 255, 255, 0.1)
+            );
+            z-index: -1;
+            border-radius: 52px;
+            animation: borderGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .wish-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.1) 100%);
+            border-radius: 50px;
+        }
+
+        .wish-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(100, 150, 255, 0.3);
+        }
+
+        .wish-button:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Анимация загрузки */
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .loading-text {
+            font-size: clamp(14px, 3vw, 18px);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .loading-spinner {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .spinner-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(45deg, #ffd700, #ffffff);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700;
+            animation: spinnerRotate 1.5s linear infinite;
+        }
+
+        .spinner-dot:nth-child(1) { animation-delay: 0s; }
+        .spinner-dot:nth-child(2) { animation-delay: 0.2s; }
+        .spinner-dot:nth-child(3) { animation-delay: 0.4s; }
+        .spinner-dot:nth-child(4) { animation-delay: 0.6s; }
+        .spinner-dot:nth-child(5) { animation-delay: 0.8s; }
+        .spinner-dot:nth-child(6) { animation-delay: 1s; }
+
+        @keyframes spinnerRotate {
+            0% {
+                transform: rotate(0deg) translateX(25px) scale(0.5);
+                opacity: 0.3;
+            }
+            50% {
+                transform: rotate(180deg) translateX(25px) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(360deg) translateX(25px) scale(0.5);
+                opacity: 0.3;
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .banner {
+                padding: 15px;
+            }
+            
+            .title {
+                margin-top: 20px;
+                padding: 12px 20px;
+            }
+            
+            .wish-container {
+                padding: 15px;
+            }
+            
+            .wish-text {
+                padding: 20px;
+                border-radius: 15px;
+                max-width: 95%;
+            }
+            
+            .button-container {
+                margin-bottom: 30px;
+            }
+            
+            .golden-ball {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 18px;
+                padding: 10px 15px;
+            }
+            
+            .wish-text {
+                font-size: 16px;
+                padding: 15px;
+            }
+            
+            .wish-button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <!-- Анимированные частицы -->
+        <div class="particles" id="particles"></div>
+        
+        <h1 class="title">Пожелания на день</h1>
+
+        <div class="wish-container">
+            <div id="wishText" class="wish-text">
+                <!-- Контейнер для золотого шарика -->
+                <div class="ball-container">
+                    <div class="golden-ball" id="goldenBall"></div>
+                </div>
+            </div>
+            
+            <!-- Контейнер загрузки -->
+            <div id="loadingContainer" class="loading-container">
+                <div class="loading-text">Ищем послание от Вселенной...</div>
+                <div class="loading-spinner">
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="buttonContainer" class="button-container">
+            <button id="wishButton" class="wish-button">Получить предсказание от Вселенной</button>
+        </div>
+    </div>
+
+    <script>
+        // Создание анимированных частиц
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 30 : 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Физика золотого шарика
+        class GoldenBall {
+            constructor(container) {
+                this.container = container;
+                this.ball = document.getElementById('goldenBall');
+                this.x = 0;
+                this.y = 0;
+                this.vx = 0;
+                this.vy = 0;
+                this.radius = 6;
+                this.minSpeed = 1;
+                this.maxSpeed = 4;
+                this.lastSparkTime = 0;
+                this.sparks = [];
+                this.bounds = { width: 0, height: 0 };
+                this.animationId = null;
+                this.isActive = false;
+            }
+
+            init() {
+                this.updateBounds();
+                this.randomizePosition();
+                this.randomizeVelocity();
+                this.ball.style.display = 'block';
+                this.isActive = true;
+                this.animate();
+            }
+
+            updateBounds() {
+                const rect = this.container.getBoundingClientRect();
+                this.bounds.width = rect.width - this.radius * 2;
+                this.bounds.height = rect.height - this.radius * 2;
+            }
+
+            randomizePosition() {
+                this.x = this.radius + Math.random() * (this.bounds.width - this.radius * 2);
+                this.y = this.radius + Math.random() * (this.bounds.height - this.radius * 2);
+            }
+
+            randomizeVelocity() {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = this.minSpeed + Math.random() * (this.maxSpeed - this.minSpeed);
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+            }
+
+            createSparks(x, y, count = 5, isCorner = false) {
+                const now = Date.now();
+                if (now - this.lastSparkTime < 100) return;
+                this.lastSparkTime = now;
+
+                const sparkCount = isCorner ? 8 : count;
+                
+                for (let i = 0; i < sparkCount; i++) {
+                    const spark = document.createElement('div');
+                    spark.className = 'spark';
+                    spark.style.left = x + 'px';
+                    spark.style.top = y + 'px';
+                    
+                    const angle = (Math.PI * 2 * i) / sparkCount + Math.random() * 0.5;
+                    const speed = 2 + Math.random() * 3;
+                    const vx = Math.cos(angle) * speed;
+                    const vy = Math.sin(angle) * speed;
+                    
+                    this.container.appendChild(spark);
+                    
+                    const sparkData = {
+                        element: spark,
+                        x: x,
+                        y: y,
+                        vx: vx,
+                        vy: vy,
+                        life: 1,
+                        decay: 0.02 + Math.random() * 0.02
+                    };
+                    
+                    this.sparks.push(sparkData);
+                }
+            }
+
+            updateSparks() {
+                this.sparks = this.sparks.filter(spark => {
+                    spark.x += spark.vx;
+                    spark.y += spark.vy;
+                    spark.life -= spark.decay;
+                    spark.vx *= 0.98;
+                    spark.vy *= 0.98;
+                    
+                    if (spark.life <= 0) {
+                        spark.element.remove();
+                        return false;
+                    }
+                    
+                    spark.element.style.left = spark.x + 'px';
+                    spark.element.style.top = spark.y + 'px';
+                    spark.element.style.opacity = spark.life;
+                    spark.element.style.transform = `scale(${spark.life})`;
+                    
+                    return true;
+                });
+            }
+
+            checkCollisions() {
+                let collision = false;
+                let isCorner = false;
+                
+                // Проверка столкновений с границами
+                if (this.x <= this.radius) {
+                    this.x = this.radius;
+                    this.vx = Math.abs(this.vx) + (Math.random() - 0.5) * 0.5;
+                    collision = true;
+                } else if (this.x >= this.bounds.width - this.radius) {
+                    this.x = this.bounds.width - this.radius;
+                    this.vx = -Math.abs(this.vx) + (Math.random() - 0.5) * 0.5;
+                    collision = true;
+                }
+                
+                if (this.y <= this.radius) {
+                    this.y = this.radius;
+                    this.vy = Math.abs(this.vy) + (Math.random() - 0.5) * 0.5;
+                    collision = true;
+                } else if (this.y >= this.bounds.height - this.radius) {
+                    this.y = this.bounds.height - this.radius;
+                    this.vy = -Math.abs(this.vy) + (Math.random() - 0.5) * 0.5;
+                    collision = true;
+                }
+                
+                // Проверка угловых столкновений
+                const cornerThreshold = this.radius * 2;
+                if ((this.x <= cornerThreshold || this.x >= this.bounds.width - cornerThreshold) &&
+                    (this.y <= cornerThreshold || this.y >= this.bounds.height - cornerThreshold)) {
+                    isCorner = true;
+                }
+                
+                if (collision) {
+                    // Поддержание скорости в допустимых пределах
+                    const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                    if (speed < this.minSpeed) {
+                        const factor = this.minSpeed / speed;
+                        this.vx *= factor;
+                        this.vy *= factor;
+                    } else if (speed > this.maxSpeed) {
+                        const factor = this.maxSpeed / speed;
+                        this.vx *= factor;
+                        this.vy *= factor;
+                    }
+                    
+                    // Создание искр
+                    this.createSparks(this.x, this.y, 5, isCorner);
+                    
+                    // Эффект пульсации при ударе
+                    this.ball.style.transform = 'scale(1.3)';
+                    this.ball.style.boxShadow = '0 0 20px #ffd700, 0 0 40px #ffd700';
+                    setTimeout(() => {
+                        this.ball.style.transform = 'scale(1)';
+                        this.ball.style.boxShadow = '0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px rgba(255, 215, 0, 0.5)';
+                    }, 150);
+                }
+            }
+
+            animate() {
+                if (!this.isActive) return;
+                
+                // Обновление позиции
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Проверка столкновений
+                this.checkCollisions();
+                
+                // Обновление позиции шарика
+                this.ball.style.left = this.x + 'px';
+                this.ball.style.top = this.y + 'px';
+                
+                // Обновление искр
+                this.updateSparks();
+                
+                // Антициклическая система
+                if (Math.random() < 0.001) {
+                    this.vx += (Math.random() - 0.5) * 0.2;
+                    this.vy += (Math.random() - 0.5) * 0.2;
+                }
+                
+                this.animationId = requestAnimationFrame(() => this.animate());
+            }
+
+            stop() {
+                this.isActive = false;
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+                this.ball.style.display = 'none';
+                // Очистка искр
+                this.sparks.forEach(spark => spark.element.remove());
+                this.sparks = [];
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Создание частиц
+            createParticles();
+            
+            const wishes = [
+                "Сегодня перед тобой откроются новые пути, о которых ты даже не думал. Будь внимателен к знакам, они укажут верное направление. Совет: не бойся сделать шаг в неизвестность, ведь именно там скрываются самые ценные дары судьбы.",
+                "Сегодня перед тобой откроется новая возможность, которая может изменить твою жизнь. Будь внимателен к деталям, ведь в них скрыты подсказки судьбы позволь себе довериться потоку событий.",
+                "Сегодняшний день напомнит тебе о том, как важно быть в моменте. Не спеши, наслаждайся каждым мгновением счастье уже здесь, просто позволь себе его почувствовать."
+            ];
+            
+            const wishButton = document.getElementById('wishButton');
+            const buttonContainer = document.getElementById('buttonContainer');
+            const wishText = document.getElementById('wishText');
+            const loadingContainer = document.getElementById('loadingContainer');
+            
+            // Инициализация физики шарика
+            const goldenBall = new GoldenBall(wishText);
+            
+            wishButton.addEventListener('click', function() {
+                // Скрываем кнопку
+                buttonContainer.style.display = 'none';
+                
+                // Показываем загрузку
+                loadingContainer.style.display = 'flex';
+                
+                // Симуляция поиска послания (2-3 секунды)
+                const loadingTime = 2000 + Math.random() * 1000;
+                
+                setTimeout(() => {
+                    // Скрываем загрузку
+                    loadingContainer.style.display = 'none';
+                    
+                    // Выбираем случайное пожелание
+                    const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+                    
+                    // Показываем контейнер для текста
+                    wishText.style.display = 'block';
+                    wishText.innerHTML = '<div class="ball-container"><div class="golden-ball" id="goldenBall"></div></div>';
+                    
+                    // Разбиваем текст на слова
+                    const words = randomWish.split(' ');
+                    let delay = 0;
+                    
+                    // Обрабатываем каждое слово
+                    words.forEach(function(word) {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.className = 'word';
+                        
+                        // Добавляем каждую букву с анимацией
+                        for (let i = 0; i < word.length; i++) {
+                            const letterSpan = document.createElement('span');
+                            letterSpan.textContent = word[i];
+                            letterSpan.className = 'letter glowing';
+                            letterSpan.style.animationDelay = delay + 's';
+                            wordSpan.appendChild(letterSpan);
+                            delay += 0.05; // Более плавная анимация
+                        }
+                        
+                        wishText.appendChild(wordSpan);
+                    });
+                    
+                    // Запускаем золотой шарик после завершения анимации текста
+                    setTimeout(() => {
+                        // Переинициализируем шарик с новым контейнером
+                        goldenBall.container = wishText.querySelector('.ball-container');
+                        goldenBall.ball = document.getElementById('goldenBall');
+                        goldenBall.init();
+                    }, delay * 1000 + 1000);
+                    
+                }, loadingTime);
+            });
+            
+            // Обновление границ при изменении размера окна
+            window.addEventListener('resize', () => {
+                if (goldenBall.isActive) {
+                    goldenBall.updateBounds();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
