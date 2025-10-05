@@ -1407,16 +1407,7 @@
                         wishText.appendChild(wordSpan);
                     });
                     
-                    // Запускаем золотой шарик после завершения анимации текста
-                    setTimeout(() => {
-                        // Переинициализируем шарик с новым контейнером
-                        goldenBall.container = wishText.querySelector('.ball-container');
-                        goldenBall.ball = document.getElementById('goldenBall');
-                        goldenBall.init();
-                    }, delay * 1000 + 1000);
-                    
-                }, loadingTime);
-            });
+                  
             
             // Обновление границ при изменении размера окна
             window.addEventListener('resize', () => {
