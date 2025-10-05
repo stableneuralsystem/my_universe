@@ -6,7 +6,6 @@
     <title>Пожелания на день</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poiret+One:wght@400;600&display=swap');
-
         body, html {
             margin: 0;
             padding: 0;
@@ -15,7 +14,6 @@
             font-family: 'Poiret One', cursive;
             overflow: hidden;
         }
-
         .banner {
             width: 100%;
             height: 100vh;
@@ -30,7 +28,6 @@
             position: relative;
             overflow: hidden;
         }
-
         /* Футуристический фон */
         .banner::before {
             content: '';
@@ -46,12 +43,10 @@
             z-index: 0;
             animation: backgroundPulse 4s ease-in-out infinite alternate;
         }
-
         @keyframes backgroundPulse {
             0% { opacity: 0.3; }
             100% { opacity: 0.7; }
         }
-
         /* Анимированные частицы в фоне */
         .particles {
             position: absolute;
@@ -62,7 +57,6 @@
             z-index: 0;
             pointer-events: none;
         }
-
         .particle {
             position: absolute;
             width: 2px;
@@ -72,7 +66,6 @@
             animation: float 8s infinite linear;
             opacity: 0.3;
         }
-
         @keyframes float {
             0% {
                 transform: translateY(100vh) rotate(0deg);
@@ -89,7 +82,6 @@
                 opacity: 0;
             }
         }
-
         .title {
             font-size: clamp(20px, 4vw, 28px);
             text-align: center;
@@ -97,7 +89,7 @@
             letter-spacing: 2px;
             position: relative;
             z-index: 1;
-            text-shadow: 
+            text-shadow:
                 0 0 10px rgba(255, 255, 255, 0.3),
                 0 0 20px rgba(255, 255, 255, 0.1);
             background: rgba(15, 15, 25, 0.8);
@@ -109,7 +101,6 @@
             font-weight: 600;
             animation: titleGlow 3s ease-in-out infinite alternate;
         }
-
         @keyframes titleGlow {
             0% {
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
@@ -118,7 +109,6 @@
                 box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
             }
         }
-
         .wish-container {
             flex-grow: 1;
             display: flex;
@@ -131,7 +121,6 @@
             position: relative;
             z-index: 1;
         }
-
         .wish-text {
             display: none;
             font-size: clamp(16px, 3.5vw, 22px);
@@ -143,7 +132,7 @@
             border-radius: 20px;
             backdrop-filter: blur(15px);
             border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
+            box-shadow:
                 0 0 30px rgba(0, 0, 0, 0.5),
                 inset 0 0 20px rgba(255, 255, 255, 0.05);
             max-width: 90%;
@@ -151,25 +140,20 @@
             position: relative;
             overflow: hidden;
         }
-
         .word {
             display: inline-block;
             margin-right: 0.35em;
         }
-
         .word:last-child {
             margin-right: 0;
         }
-
         .letter {
             display: inline-block;
             opacity: 0;
         }
-
         .glowing {
             animation: glow 2s forwards;
         }
-
         @keyframes glow {
             0% {
                 opacity: 0;
@@ -184,7 +168,6 @@
                 text-shadow: 0 0 5px white, 0 0 10px white;
             }
         }
-
         .button-container {
             width: 100%;
             display: flex;
@@ -193,7 +176,6 @@
             position: relative;
             z-index: 1;
         }
-
         .wish-button {
             background: linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(40, 40, 60, 0.9));
             color: white;
@@ -216,7 +198,6 @@
             backdrop-filter: blur(10px);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
-
         .wish-button::before {
             content: '';
             position: absolute;
@@ -224,21 +205,19 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, 
-                rgba(255, 255, 255, 0.1), 
-                rgba(100, 150, 255, 0.2), 
+            background: linear-gradient(45deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(100, 150, 255, 0.2),
                 rgba(255, 255, 255, 0.1)
             );
             z-index: -1;
             border-radius: 52px;
             animation: borderGlow 2s ease-in-out infinite alternate;
         }
-
         @keyframes borderGlow {
             0% { opacity: 0.5; }
             100% { opacity: 1; }
         }
-
         .wish-button::after {
             content: '';
             position: absolute;
@@ -252,7 +231,6 @@
                 rgba(0, 0, 0, 0.1) 100%);
             border-radius: 50px;
         }
-
         .wish-button:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow:
@@ -260,11 +238,9 @@
                 0 0 0 1px rgba(255, 255, 255, 0.3),
                 0 0 20px rgba(100, 150, 255, 0.3);
         }
-
         .wish-button:active {
             transform: translateY(1px) scale(0.98);
         }
-
         /* Анимация загрузки */
         .loading-container {
             display: none;
@@ -272,20 +248,17 @@
             align-items: center;
             gap: 20px;
         }
-
         .loading-text {
             font-size: clamp(14px, 3vw, 18px);
             color: rgba(255, 255, 255, 0.8);
             text-align: center;
             letter-spacing: 1px;
         }
-
         .loading-spinner {
             position: relative;
             width: 60px;
             height: 60px;
         }
-
         .spinner-dot {
             position: absolute;
             width: 8px;
@@ -295,14 +268,12 @@
             box-shadow: 0 0 10px #ffd700;
             animation: spinnerRotate 1.5s linear infinite;
         }
-
         .spinner-dot:nth-child(1) { animation-delay: 0s; }
         .spinner-dot:nth-child(2) { animation-delay: 0.2s; }
         .spinner-dot:nth-child(3) { animation-delay: 0.4s; }
         .spinner-dot:nth-child(4) { animation-delay: 0.6s; }
         .spinner-dot:nth-child(5) { animation-delay: 0.8s; }
         .spinner-dot:nth-child(6) { animation-delay: 1s; }
-
         @keyframes spinnerRotate {
             0% {
                 transform: rotate(0deg) translateX(25px) scale(0.5);
@@ -317,44 +288,42 @@
                 opacity: 0.3;
             }
         }
-
         /* Адаптивность */
         @media (max-width: 768px) {
             .banner {
                 padding: 15px;
             }
-            
+
             .title {
                 margin-top: 20px;
                 padding: 12px 20px;
             }
-            
+
             .wish-container {
                 padding: 15px;
             }
-            
+
             .wish-text {
                 padding: 20px;
                 border-radius: 15px;
                 max-width: 95%;
             }
-            
+
             .button-container {
                 margin-bottom: 30px;
             }
         }
-
         @media (max-width: 480px) {
             .title {
                 font-size: 18px;
                 padding: 10px 15px;
             }
-            
+
             .wish-text {
                 font-size: 16px;
                 padding: 15px;
             }
-            
+
             .wish-button {
                 padding: 10px 20px;
                 font-size: 16px;
@@ -366,12 +335,12 @@
     <div class="banner">
         <!-- Анимированные частицы -->
         <div class="particles" id="particles"></div>
-        
-        <h1 class="title">Пожелания на день</h1>
 
+        <h1 class="title">Пожелания на день</h1>
         <div class="wish-container">
-            <div id="wishText" class="wish-text"></div>
-            
+            <div id="wishText" class="wish-text">
+            </div>
+
             <!-- Контейнер загрузки -->
             <div id="loadingContainer" class="loading-container">
                 <div class="loading-text">Поиск послания от Вселенной для вас...</div>
@@ -385,18 +354,16 @@
                 </div>
             </div>
         </div>
-
         <div id="buttonContainer" class="button-container">
             <button id="wishButton" class="wish-button">Получить предсказание от Вселенной</button>
         </div>
     </div>
-
     <script>
         // Создание анимированных частиц
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = window.innerWidth < 768 ? 30 : 50;
-            
+
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
